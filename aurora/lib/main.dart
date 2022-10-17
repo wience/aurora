@@ -179,7 +179,10 @@ class _MyHomePageState extends State<MyHomePage> {
           elevation: 4.0,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
-          child: Icon(Icons.map),
+          child: ImageIcon(
+            AssetImage('assets/img/pin.png'),
+            size: 40,
+          ),
         ),
       ),
       bottomNavigationBar: Container(
@@ -214,25 +217,30 @@ class _MyHomePageState extends State<MyHomePage> {
                   backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                   items: const <BottomNavigationBarItem>[
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.home),
+                      icon: ImageIcon(AssetImage("assets/img/home.png"),
+                          size: 32),
                       label: 'Home',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.flood),
+                      icon: ImageIcon(AssetImage("assets/img/flood.png"),
+                          size: 32),
                       label: 'FloodMap',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.report),
+                      icon: ImageIcon(AssetImage("assets/img/newspaper.png"),
+                          size: 32),
                       label: 'News',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.message),
+                      icon: ImageIcon(AssetImage("assets/img/text.png"),
+                          size: 32),
                       label: 'Messaage',
                     ),
                   ],
                   selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
                   unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-                  showUnselectedLabels: true,
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
                   elevation: 0,
                 ),
               ))),
