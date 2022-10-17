@@ -51,19 +51,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -109,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       const Text("32",
                           style: TextStyle(
                             fontSize: 30,
-                            fontFamily: 'Nunito',
+                            fontFamily: 'MontserratAlternateBold',
                           )),
                       const Spacer(flex: 1),
                       DropShadowImage(
@@ -120,13 +107,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       const Text("Today Looks Good",
                           style: TextStyle(
                             fontSize: 30,
-                            fontFamily: 'Nunito',
+                            fontFamily: 'NunitoSansBold',
                           )),
                       const Spacer(flex: 2),
                       const Text("Do you need anything?",
                           style: TextStyle(
                             fontSize: 15,
-                            fontFamily: 'Nunito',
+                            fontFamily: 'NunitoSans',
                           )),
                       const Spacer(flex: 15),
                     ]),
