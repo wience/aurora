@@ -87,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Expanded(
                 child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(50), topRight: Radius.circular(50)),
               child: Container(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
@@ -132,6 +133,59 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ))
           ],
-        )));
+        )),
+        bottomNavigationBar: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Color.fromRGBO(91, 141, 238, 1),
+                  Color.fromRGBO(91, 141, 238, 1),
+                ],
+              ),
+            ),
+            child: Container(
+                height: 120,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  ),
+                  child: BottomNavigationBar(
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    items: const <BottomNavigationBarItem>[
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.home),
+                        label: 'Home',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.flood),
+                        label: 'FloodMap',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.report),
+                        label: 'News',
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(Icons.message),
+                        label: 'Messaage',
+                      ),
+                    ],
+                    selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+                    unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+                    showUnselectedLabels: true,
+                    elevation: 0,
+                  ),
+                ))));
   }
 }
