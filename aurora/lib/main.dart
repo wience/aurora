@@ -7,6 +7,30 @@ void main() {
   runApp(const MyApp());
 }
 
+class GradientText extends StatelessWidget {
+  const GradientText(
+    this.text, {
+    super.key,
+    required this.gradient,
+    this.style,
+  });
+
+  final String text;
+  final TextStyle? style;
+  final Gradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      blendMode: BlendMode.srcIn,
+      shaderCallback: (bounds) => gradient.createShader(
+        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+      ),
+      child: Text(text, style: style),
+    );
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -60,119 +84,159 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          title: const Text("Hello Wince",
-              style: TextStyle(
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold)),
-          elevation: 0,
-        ),
-        body: Center(
-            child: Column(
-          children: <Widget>[
-            Expanded(
-                child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color.fromRGBO(110, 195, 245, 1),
-                      Color.fromRGBO(91, 141, 238, 1),
-                    ],
-                  ),
-                ),
-                width: 1000,
-                height: 10000,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const Spacer(flex: 2),
-                      const Text("32",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontFamily: 'MontserratAlternateBold',
-                          )),
-                      const Spacer(flex: 1),
-                      DropShadowImage(
-                        image: Image.asset('assets/img/sunny.png'),
-                        blurRadius: 0,
-                      ),
-                      const Spacer(flex: 2),
-                      const Text("Today Looks Good",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontFamily: 'NunitoSansBold',
-                          )),
-                      const Spacer(flex: 2),
-                      const Text("Do you need anything?",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontFamily: 'NunitoSans',
-                          )),
-                      const Spacer(flex: 15),
-                    ]),
-              ),
-            ))
-          ],
-        )),
-        bottomNavigationBar: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Color.fromRGBO(91, 141, 238, 1),
-                  Color.fromRGBO(91, 141, 238, 1),
-                ],
-              ),
-            ),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        title: const Text("Hello, Wince",
+            style: TextStyle(
+                color: Color.fromARGB(255, 0, 0, 0),
+                fontSize: 20,
+                fontFamily: 'MontserratAlternateBold')),
+        elevation: 0,
+      ),
+      body: Center(
+          child: Column(
+        children: <Widget>[
+          Expanded(
+              child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(50), topRight: Radius.circular(50)),
             child: Container(
-                height: 120,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
-                      topLeft: Radius.circular(30)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color.fromRGBO(110, 195, 245, 1),
+                    Color.fromRGBO(91, 141, 238, 1),
                   ],
                 ),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                  child: BottomNavigationBar(
-                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                    items: const <BottomNavigationBarItem>[
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.home),
-                        label: 'Home',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.flood),
-                        label: 'FloodMap',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.report),
-                        label: 'News',
-                      ),
-                      BottomNavigationBarItem(
-                        icon: Icon(Icons.message),
-                        label: 'Messaage',
-                      ),
-                    ],
-                    selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-                    unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-                    showUnselectedLabels: true,
-                    elevation: 0,
-                  ),
-                ))));
+              ),
+              width: 1000,
+              height: 10000,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Spacer(flex: 3),
+                    const GradientText(
+                      '32',
+                      style: TextStyle(
+                          fontSize: 65, fontFamily: 'MontserratAlternateBold'),
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromARGB(255, 255, 255, 255),
+                            Color.fromARGB(230, 255, 255, 255),
+                            Color.fromARGB(25, 255, 255, 255),
+                          ]),
+                    ),
+                    const Spacer(flex: 1),
+                    DropShadowImage(
+                      image: Image.asset('assets/img/sunny.png'),
+                      blurRadius: 0,
+                    ),
+                    const Spacer(flex: 2),
+                    const GradientText(
+                      'Today Looks Good',
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontFamily: 'NunitoSans',
+                          fontWeight: FontWeight.bold),
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromARGB(255, 255, 255, 255),
+                            Color.fromARGB(230, 255, 255, 255),
+                            Color.fromARGB(25, 255, 255, 255),
+                          ]),
+                    ),
+                    const Spacer(flex: 2),
+                    const GradientText(
+                      'What can I do for you today?',
+                      style: TextStyle(fontSize: 18, fontFamily: 'NunitoSans'),
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromARGB(255, 255, 255, 255),
+                            Color.fromARGB(230, 255, 255, 255),
+                            Color.fromARGB(25, 255, 255, 255),
+                          ]),
+                    ),
+                    const Spacer(flex: 15),
+                  ]),
+            ),
+          ))
+        ],
+      )),
+      floatingActionButton: const SizedBox(
+        height: 71,
+        width: 71,
+        child: FloatingActionButton(
+          onPressed: null,
+          tooltip: 'Increment',
+          elevation: 4.0,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          child: Icon(Icons.map),
+        ),
+      ),
+      bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Color.fromRGBO(91, 141, 238, 1),
+                Color.fromRGBO(91, 141, 238, 1),
+              ],
+            ),
+          ),
+          child: Container(
+              height: 120,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30)),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+                child: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home),
+                      label: 'Home',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.flood),
+                      label: 'FloodMap',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.report),
+                      label: 'News',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.message),
+                      label: 'Messaage',
+                    ),
+                  ],
+                  selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+                  unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+                  showUnselectedLabels: true,
+                  elevation: 0,
+                ),
+              ))),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
   }
 }
