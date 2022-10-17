@@ -1,4 +1,7 @@
+// ignore_for_file: dead_code
+
 import 'package:flutter/material.dart';
+import 'package:drop_shadow_image/drop_shadow_image.dart';
 
 void main() {
   runApp(const MyApp());
@@ -70,33 +73,65 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        title: const Text("Hello Wince",
-            style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 20,
-                fontWeight: FontWeight.bold)),
-        elevation: 0,
-      ),
-      body: Center(
-          child: Column(children: <Widget>[
-        Expanded(
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Container(
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
+        appBar: AppBar(
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          title: const Text("Hello Wince",
+              style: TextStyle(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold)),
+          elevation: 0,
+        ),
+        body: Center(
+            child: Column(
+          children: <Widget>[
+            Expanded(
+                child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
                       Color.fromRGBO(110, 195, 245, 1),
                       Color.fromRGBO(91, 141, 238, 1),
                     ],
-                  )),
-                  width: 500,
-                )))
-      ])),
-    ); // This trailing comma makes auto-formatting nicer for build methods.
+                  ),
+                ),
+                width: 1000,
+                height: 10000,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Spacer(flex: 2),
+                      const Text("32",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: 'Nunito',
+                          )),
+                      const Spacer(flex: 1),
+                      DropShadowImage(
+                        image: Image.asset('assets/img/sunny.png'),
+                        blurRadius: 0,
+                      ),
+                      const Spacer(flex: 2),
+                      const Text("Today Looks Good",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: 'Nunito',
+                          )),
+                      const Spacer(flex: 2),
+                      const Text("Do you need anything?",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'Nunito',
+                          )),
+                      const Spacer(flex: 15),
+                    ]),
+              ),
+            ))
+          ],
+        )));
   }
 }
