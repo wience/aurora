@@ -83,28 +83,55 @@ class _MyHomePageState extends State<MyHomePage> {
           elevation: 0,
         ),
         body: Center(
-            child: Column(children: <Widget>[
-          Expanded(
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(50),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(110, 195, 245, 1),
-                          Color.fromRGBO(91, 141, 238, 1),
-                        ],
+            child: Column(
+          children: <Widget>[
+            Expanded(
+                child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color.fromRGBO(110, 195, 245, 1),
+                      Color.fromRGBO(91, 141, 238, 1),
+                    ],
+                  ),
+                ),
+                width: 1000,
+                height: 10000,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Spacer(flex: 2),
+                      const Text("32",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: 'Nunito',
+                          )),
+                      const Spacer(flex: 1),
+                      DropShadowImage(
+                        image: Image.asset('assets/img/sunny.png'),
+                        blurRadius: 0,
                       ),
-                    ),
-                    width: 500,
-                    height: 500,
-                    child: DropShadowImage(
-                      image: Image.asset('assets/img/sunny.png'),
-                      blurRadius: 1,
-                    ),
-                  )))
-        ])));
+                      const Spacer(flex: 2),
+                      const Text("Today Looks Good",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontFamily: 'Nunito',
+                          )),
+                      const Spacer(flex: 2),
+                      const Text("Do you need anything?",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'Nunito',
+                          )),
+                      const Spacer(flex: 15),
+                    ]),
+              ),
+            ))
+          ],
+        )));
   }
 }
