@@ -63,6 +63,11 @@ flutter:
         - asset: assets/fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf
         - asset: assets/fonts/Montserrat_Alternates/MontserratAlternates-BoldItalic.ttf
           style: italic
+    - family: MontserratAlternateSemiBold
+      fonts:
+        - asset: assets/fonts/Montserrat_Alternates/MontserratAlternates-SemiBold.ttf
+        - asset: assets/fonts/Montserrat_Alternates/MontserratAlternates-SemiBoldItalic.ttf
+          style: italic
     - family: NunitoSans
       fonts:
         - asset: assets/fonts/nunito-sans/NunitoSans-Regular.ttf
