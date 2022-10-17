@@ -90,18 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Colors.blue,
-                      Colors.red,
+                      Color.fromRGBO(110, 195, 245, 1),
+                      Color.fromRGBO(91, 141, 238, 1),
                     ],
                   )),
                   width: 500,
                 )))
       ])),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ); // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
