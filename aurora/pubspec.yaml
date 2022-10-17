@@ -55,13 +55,13 @@ flutter:
   fonts: 
     - family: MontserratAlternate
       fonts:
-        - asset: assets/fonts/Montserrat_Alternatives/MontserratAlternates-Regular.ttf
-        - asset: assets/fonts/Montserrat_Alternatives/MontserratAlternates-Italic.ttf
+        - asset: assets/fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf
+        - asset: assets/fonts/Montserrat_Alternates/MontserratAlternates-Italic.ttf
           style: italic
     - family: MontserratAlternateBold
       fonts:
-        - asset: assets/fonts/Montserrat_Alternatives/MontserratAlternates-Bold.ttf
-        - asset: assets/fonts/Montserrat_Alternatives/MontserratAlternates-BoldItalic.ttf
+        - asset: assets/fonts/Montserrat_Alternates/MontserratAlternates-Bold.ttf
+        - asset: assets/fonts/Montserrat_Alternates/MontserratAlternates-BoldItalic.ttf
           style: italic
     - family: NunitoSans
       fonts:
