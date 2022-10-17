@@ -55,10 +55,24 @@ flutter:
   fonts: 
     - family: MontserratAlternate
       fonts:
-        - asset: assets/MontserratAlternates-Regular.ttf
+        - asset: assets/fonts/Montserrat_Alternatives/MontserratAlternates-Regular.ttf
+        - asset: assets/fonts/Montserrat_Alternatives/MontserratAlternates-Italic.ttf
+          style: italic
+    - family: MontserratAlternateBold
+      fonts:
+        - asset: assets/fonts/Montserrat_Alternatives/MontserratAlternates-Bold.ttf
+        - asset: assets/fonts/Montserrat_Alternatives/MontserratAlternates-BoldItalic.ttf
+          style: italic
     - family: NunitoSans
       fonts:
-        - asset: assets/NunitoSans-Regular.ttf
+        - asset: assets/fonts/nunito-sans/NunitoSans-Regular.ttf
+        - asset: assets/fonts/nunito-sans/NunitoSans-Italic.ttf
+          style: italic
+    - family: NunitoSansBold
+      fonts:
+        - asset: assets/fonts/nunito-sans/NunitoSans-Bold.ttf
+        - asset: assets/fonts/nunito-sans/NunitoSans-BoldItalic.ttf
+          style: italic
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
