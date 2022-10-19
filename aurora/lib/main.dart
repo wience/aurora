@@ -1,250 +1,206 @@
-// ignore_for_file: dead_code
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:drop_shadow_image/drop_shadow_image.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'auth/firebase_user_provider.dart';
+import 'auth/auth_util.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/flutter_flow_util.dart';
+import 'flutter_flow/internationalization.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+import 'index.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FlutterFlowTheme.initialize();
+
+  runApp(MyApp());
 }
 
-class GradientText extends StatelessWidget {
-  const GradientText(
-    this.text, {
-    super.key,
-    required this.gradient,
-    this.style,
-  });
+class MyApp extends StatefulWidget {
+  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
 
-  final String text;
-  final TextStyle? style;
-  final Gradient gradient;
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>()!;
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+
+  late Stream<AuroraFirebaseUser> userStream;
+  AuroraFirebaseUser? initialUser;
+  bool displaySplashImage = true;
+
+  final authUserSub = authenticatedUserStream.listen((_) {});
 
   @override
-  Widget build(BuildContext context) {
-    return ShaderMask(
-      blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) => gradient.createShader(
-        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-      ),
-      child: Text(text, style: style),
+  void initState() {
+    super.initState();
+    userStream = auroraFirebaseUserStream()
+      ..listen((user) => initialUser ?? setState(() => initialUser = user));
+    Future.delayed(
+      Duration(seconds: 1),
+      () => setState(() => displaySplashImage = false),
     );
   }
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  @override
+  void dispose() {
+    authUserSub.cancel();
 
-  // This widget is the root of your application.
+    super.dispose();
+  }
+
+  void setLocale(String language) =>
+      setState(() => _locale = createLocale(language));
+  void setThemeMode(ThemeMode mode) => setState(() {
+        _themeMode = mode;
+        FlutterFlowTheme.saveThemeMode(mode);
+      });
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      title: 'Aurora',
+      localizationsDelegates: [
+        FFLocalizationsDelegate(),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: _locale,
+      supportedLocales: const [
+        Locale('en'),
+      ],
+      theme: ThemeData(brightness: Brightness.light),
+      darkTheme: ThemeData(brightness: Brightness.dark),
+      themeMode: _themeMode,
+      home: initialUser == null || displaySplashImage
+          ? Builder(
+              builder: (context) => Container(
+                color: Colors.transparent,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/splash@2x.png',
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+            )
+          : currentUser!.loggedIn
+              ? NavBarPage()
+              : HomeWidget(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class NavBarPage extends StatefulWidget {
+  NavBarPage({Key? key, this.initialPage, this.page}) : super(key: key);
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  final String? initialPage;
+  final Widget? page;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _NavBarPageState createState() => _NavBarPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+/// This is the private State class that goes with NavBarPage.
+class _NavBarPageState extends State<NavBarPage> {
+  String _currentPageName = 'FloodStatus';
+  late Widget? _currentPage;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentPageName = widget.initialPage ?? _currentPageName;
+    _currentPage = widget.page;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    final tabs = {
+      'SafetyServices': SafetyServicesWidget(),
+      'FloodStatus': FloodStatusWidget(),
+    };
+    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        title: const Text("Hello, Wince",
-            style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 20,
-                fontFamily: 'MontserratAlternateBold')),
+      body: _currentPage ?? tabs[_currentPageName],
+      extendBody: true,
+      bottomNavigationBar: FloatingNavbar(
+        currentIndex: currentIndex,
+        onTap: (i) => setState(() {
+          _currentPage = null;
+          _currentPageName = tabs.keys.toList()[i];
+        }),
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        selectedItemColor: FlutterFlowTheme.of(context).secondaryColor,
+        unselectedItemColor: Color(0xFFABB3BA),
+        selectedBackgroundColor: Color(0x00000000),
+        borderRadius: 8,
+        itemBorderRadius: 8,
+        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
+        width: double.infinity,
         elevation: 0,
-      ),
-      body: Center(
-          child: Column(
-        children: <Widget>[
-          Expanded(
-              child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color.fromRGBO(110, 195, 245, 1),
-                    Color.fromRGBO(91, 141, 238, 1),
-                  ],
+        items: [
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.home_outlined,
+                  color: currentIndex == 0
+                      ? FlutterFlowTheme.of(context).secondaryColor
+                      : Color(0xFFABB3BA),
+                  size: 24,
                 ),
-              ),
-              width: 1000,
-              height: 10000,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const Spacer(flex: 3),
-                    const GradientText(
-                      '32',
-                      style: TextStyle(
-                          fontSize: 65, fontFamily: 'MontserratAlternateBold'),
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromARGB(255, 255, 255, 255),
-                            Color.fromARGB(230, 255, 255, 255),
-                            Color.fromARGB(25, 255, 255, 255),
-                          ]),
-                    ),
-                    const Spacer(flex: 1),
-                    DropShadowImage(
-                      image: Image.asset('assets/img/sunny.png'),
-                      blurRadius: 0,
-                    ),
-                    const Spacer(flex: 2),
-                    const GradientText(
-                      'Today Looks Good',
-                      style: TextStyle(
-                          fontSize: 28,
-                          fontFamily: 'NunitoSans',
-                          fontWeight: FontWeight.bold),
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromARGB(255, 255, 255, 255),
-                            Color.fromARGB(230, 255, 255, 255),
-                            Color.fromARGB(25, 255, 255, 255),
-                          ]),
-                    ),
-                    const Spacer(flex: 2),
-                    const GradientText(
-                      'What can I do for you today?',
-                      style: TextStyle(fontSize: 18, fontFamily: 'NunitoSans'),
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color.fromARGB(255, 255, 255, 255),
-                            Color.fromARGB(230, 255, 255, 255),
-                            Color.fromARGB(25, 255, 255, 255),
-                          ]),
-                    ),
-                    const Spacer(flex: 15),
-                  ]),
-            ),
-          ))
-        ],
-      )),
-      floatingActionButton: const SizedBox(
-        height: 71,
-        width: 71,
-        child: FloatingActionButton(
-          onPressed: null,
-          tooltip: 'Increment',
-          elevation: 4.0,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          child: ImageIcon(
-            AssetImage('assets/img/pin.png'),
-            size: 40,
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Color.fromRGBO(91, 141, 238, 1),
-                Color.fromRGBO(91, 141, 238, 1),
+                Text(
+                  'Home',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 0
+                        ? FlutterFlowTheme.of(context).secondaryColor
+                        : Color(0xFFABB3BA),
+                    fontSize: 11.0,
+                  ),
+                ),
               ],
             ),
           ),
-          child: Container(
-              height: 120,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    topLeft: Radius.circular(30)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.home_outlined,
+                  color: currentIndex == 1
+                      ? FlutterFlowTheme.of(context).secondaryColor
+                      : Color(0xFFABB3BA),
+                  size: 24,
                 ),
-                child: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                  items: const <BottomNavigationBarItem>[
-                    BottomNavigationBarItem(
-                      icon: ImageIcon(AssetImage("assets/img/home.png"),
-                          size: 32),
-                      label: 'Home',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: ImageIcon(AssetImage("assets/img/flood.png"),
-                          size: 32),
-                      label: 'FloodMap',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: ImageIcon(AssetImage("assets/img/newspaper.png"),
-                          size: 32),
-                      label: 'News',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: ImageIcon(AssetImage("assets/img/text.png"),
-                          size: 32),
-                      label: 'Messaage',
-                    ),
-                  ],
-                  selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-                  unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-                  showSelectedLabels: false,
-                  showUnselectedLabels: false,
-                  elevation: 0,
+                Text(
+                  'Home',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 1
+                        ? FlutterFlowTheme.of(context).secondaryColor
+                        : Color(0xFFABB3BA),
+                    fontSize: 11.0,
+                  ),
                 ),
-              ))),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
