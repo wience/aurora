@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -65,8 +66,8 @@ class _MessagesWidgetState extends State<MessagesWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                         child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
+                          onPressed: () async {
+                            Navigator.pop(context);
                           },
                           text: '',
                           icon: Icon(
@@ -93,13 +94,15 @@ class _MessagesWidgetState extends State<MessagesWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(20, 0, 10, 0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(90),
-                          child: Image.asset(
-                            'assets/images/310066288_1696479660752848_1449414609227445890_n.jpg',
-                            width: 45,
-                            height: 45,
-                            fit: BoxFit.cover,
+                        child: AuthUserStreamWidget(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(90),
+                            child: Image.network(
+                              currentUserPhoto,
+                              width: 45,
+                              height: 45,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),

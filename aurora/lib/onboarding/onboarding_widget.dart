@@ -1,7 +1,13 @@
+import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home/home_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,7 +19,26 @@ class OnboardingWidget extends StatefulWidget {
 }
 
 class _OnboardingWidgetState extends State<OnboardingWidget> {
+  ApiCallResponse? locationResult;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Navigator.pushAndRemoveUntil(
+        context,
+        PageTransition(
+          type: PageTransitionType.fade,
+          duration: Duration(milliseconds: 0),
+          reverseDuration: Duration(milliseconds: 0),
+          child: HomeWidget(),
+        ),
+        (r) => false,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,8 +139,48 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           padding:
                               EdgeInsetsDirectional.fromSTEB(25, 13, 25, 0),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              final user = await signInWithGoogle(context);
+                              if (user == null) {
+                                return;
+                              }
+                              setState(() => FFAppState().isWelcomed = true);
+                              locationResult = await GetLocationCall.call();
+                              if ((locationResult?.succeeded ?? true)) {
+                                final usersUpdateData = createUsersRecordData(
+                                  lat: valueOrDefault<double>(
+                                    GetLocationCall.latitude(
+                                      (locationResult?.jsonBody ?? ''),
+                                    ),
+                                    10.3157,
+                                  ),
+                                  long: valueOrDefault<double>(
+                                    GetLocationCall.longitude(
+                                      (locationResult?.jsonBody ?? ''),
+                                    ),
+                                    123.8854,
+                                  ),
+                                  location: valueOrDefault<String>(
+                                    GetLocationCall.city(
+                                      (locationResult?.jsonBody ?? ''),
+                                    ).toString(),
+                                    'Cebu',
+                                  ),
+                                );
+                                await currentUserReference!
+                                    .update(usersUpdateData);
+                              }
+                              await Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.bottomToTop,
+                                  duration: Duration(milliseconds: 500),
+                                  reverseDuration: Duration(milliseconds: 500),
+                                  child: HomeWidget(),
+                                ),
+                              );
+
+                              setState(() {});
                             },
                             text: 'Get Started',
                             options: FFButtonOptions(

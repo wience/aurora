@@ -27,6 +27,12 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   @BuiltValueField(wireName: 'phone_number')
   String? get phoneNumber;
 
+  double? get lat;
+
+  double? get long;
+
+  String? get location;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -36,7 +42,10 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..displayName = ''
     ..photoUrl = ''
     ..uid = ''
-    ..phoneNumber = '';
+    ..phoneNumber = ''
+    ..lat = 0.0
+    ..long = 0.0
+    ..location = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -58,6 +67,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
           ..createdTime = safeGet(() => DateTime.fromMillisecondsSinceEpoch(
               snapshot.data['created_time']))
           ..phoneNumber = snapshot.data['phone_number']
+          ..lat = snapshot.data['lat']?.toDouble()
+          ..long = snapshot.data['long']?.toDouble()
+          ..location = snapshot.data['location']
           ..ffRef = UsersRecord.collection.doc(snapshot.objectID),
       );
 
@@ -93,6 +105,9 @@ Map<String, dynamic> createUsersRecordData({
   String? uid,
   DateTime? createdTime,
   String? phoneNumber,
+  double? lat,
+  double? long,
+  String? location,
 }) {
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
@@ -103,7 +118,10 @@ Map<String, dynamic> createUsersRecordData({
         ..photoUrl = photoUrl
         ..uid = uid
         ..createdTime = createdTime
-        ..phoneNumber = phoneNumber,
+        ..phoneNumber = phoneNumber
+        ..lat = lat
+        ..long = long
+        ..location = location,
     ),
   );
 

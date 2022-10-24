@@ -1,6 +1,7 @@
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home_state3/home_state3_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,8 +77,16 @@ class _AlertScreenWidgetState extends State<AlertScreenWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 62, 0, 0),
                 child: FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.topToBottom,
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        child: HomeState3Widget(),
+                      ),
+                    );
                   },
                   text: 'Cancel',
                   options: FFButtonOptions(

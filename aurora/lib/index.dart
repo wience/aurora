@@ -11,3 +11,5 @@ export 'alert_screen/alert_screen_widget.dart' show AlertScreenWidget;
 export 'messages/messages_widget.dart' show MessagesWidget;
 export 'emergency_contacts/emergency_contacts_widget.dart'
     show EmergencyContactsWidget;
+export 'temp_page/temp_page_widget.dart' show TempPageWidget;
+export 'map_view/map_view_widget.dart' show MapViewWidget;

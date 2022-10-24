@@ -3,29 +3,29 @@ import '../backend/api_requests/api_calls.dart';
 import '../flood_status/flood_status_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../home/home_widget.dart';
 import '../latest_news/latest_news_widget.dart';
-import '../map_view/map_view_widget.dart';
 import '../messages/messages_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
-class HomeState2Widget extends StatefulWidget {
-  const HomeState2Widget({Key? key}) : super(key: key);
+class MapViewWidget extends StatefulWidget {
+  const MapViewWidget({Key? key}) : super(key: key);
 
   @override
-  _HomeState2WidgetState createState() => _HomeState2WidgetState();
+  _MapViewWidgetState createState() => _MapViewWidgetState();
 }
 
-class _HomeState2WidgetState extends State<HomeState2Widget> {
+class _MapViewWidgetState extends State<MapViewWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         iconTheme: IconThemeData(color: Colors.black),
@@ -46,95 +46,97 @@ class _HomeState2WidgetState extends State<HomeState2Widget> {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFFFF6161), Color(0xFF5B8DEE)],
-              stops: [0, 0.7],
-              begin: AlignmentDirectional(-0.94, -1),
-              end: AlignmentDirectional(0.94, 1),
-            ),
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(0),
-              bottomRight: Radius.circular(0),
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-            ),
-            shape: BoxShape.rectangle,
-          ),
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
-            alignment: AlignmentDirectional(0, 0),
             children: [
-              Align(
-                alignment: AlignmentDirectional(-1, -1),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(136, 36, 0, 0),
-                  child: GradientText(
-                    '26°',
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Montserrat Alternates',
-                          fontSize: 65,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    colors: [
-                      Colors.white,
-                      Color(0xE5FFFFFF),
-                      Color(0x1AFFFFFF)
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 1,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xFF5B8DEE), Color(0xFF6EC3F5)],
+                    stops: [0, 1],
+                    begin: AlignmentDirectional(1, 0),
+                    end: AlignmentDirectional(-1, 0),
+                  ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0),
+                    bottomRight: Radius.circular(0),
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40),
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      child: Image.asset(
+                        'assets/images/illustration.png',
+                        width: 120,
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Spacer(flex: 2),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 41, 36, 0),
+                      child: GradientText(
+                        '32°',
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Montserrat Alternates',
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                            ),
+                        colors: [
+                          Colors.white,
+                          Color(0xDAFFFFFF),
+                          Color(0x1AFFFFFF)
+                        ],
+                        gradientDirection: GradientDirection.ttb,
+                        gradientType: GradientType.linear,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 116, 0, 0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 80,
+                        color: Color(0x2B8D9BAA),
+                        offset: Offset(0, 10),
+                      )
                     ],
-                    gradientDirection: GradientDirection.ttb,
-                    gradientType: GradientType.linear,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                    shape: BoxShape.rectangle,
                   ),
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(0, -1),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
-                  child: Image.asset(
-                    'assets/images/weatherbad.png',
-                    width: 300,
-                    height: 300,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(-0.65, -1),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 385, 20, 0),
-                  child: GradientText(
-                    'Today\'s Weather Looks Bad!',
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Nunito Sans',
-                          fontSize: 28,
-                          fontWeight: FontWeight.w800,
-                        ),
-                    colors: [
-                      Colors.white,
-                      Color(0xE6FFFFFF),
-                      Color(0x1AFFFFFF)
-                    ],
-                    gradientDirection: GradientDirection.ttb,
-                    gradientType: GradientType.linear,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional(0, -1),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(25, 459, 25, 0),
-                  child: Text(
-                    'We suggest updating your emergency contacts and reading the preparation tips in the “Safety Services” Section\n',
-                    textAlign: TextAlign.justify,
-                    style: GoogleFonts.getFont(
-                      'Nunito Sans',
-                      color: Color(0xCBFFFFFF),
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(0),
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                    child: Image.asset(
+                      'assets/images/Philippines-Cities-Projected-Sea-Level-by-2050-Cebu-City-Project-LUPAD_1.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -176,11 +178,11 @@ class _HomeState2WidgetState extends State<HomeState2Widget> {
                                       await Navigator.push(
                                         context,
                                         PageTransition(
-                                          type: PageTransitionType.fade,
-                                          duration: Duration(milliseconds: 0),
+                                          type: PageTransitionType.topToBottom,
+                                          duration: Duration(milliseconds: 300),
                                           reverseDuration:
-                                              Duration(milliseconds: 0),
-                                          child: HomeState2Widget(),
+                                              Duration(milliseconds: 300),
+                                          child: HomeWidget(),
                                         ),
                                       );
                                     },
@@ -286,58 +288,29 @@ class _HomeState2WidgetState extends State<HomeState2Widget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 60),
-                            child: InkWell(
-                              onTap: () async {
-                                await Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.bottomToTop,
-                                    duration: Duration(milliseconds: 300),
-                                    reverseDuration:
-                                        Duration(milliseconds: 300),
-                                    child: MapViewWidget(),
-                                  ),
-                                );
-                              },
+                            child: Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF9FBABD),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 4,
+                                    color: Color(0x33000000),
+                                    offset: Offset(0, 4),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(100),
+                              ),
                               child: Container(
-                                width: 70,
-                                height: 70,
+                                width: 120,
+                                height: 120,
+                                clipBehavior: Clip.antiAlias,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 4,
-                                      color: Color(0x33000000),
-                                      offset: Offset(0, 4),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(100),
+                                  shape: BoxShape.circle,
                                 ),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration: Duration(milliseconds: 300),
-                                        reverseDuration:
-                                            Duration(milliseconds: 300),
-                                        child: MapViewWidget(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 120,
-                                    height: 120,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.asset(
-                                      'assets/images/pin_1.png',
-                                    ),
-                                  ),
+                                child: Image.asset(
+                                  'assets/images/pin_1.png',
                                 ),
                               ),
                             ),

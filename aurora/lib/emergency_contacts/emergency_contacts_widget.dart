@@ -145,11 +145,16 @@ class _EmergencyContactsWidgetState extends State<EmergencyContactsWidget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(30.99, 11, 0, 0),
-                            child: Image.asset(
-                              'assets/images/Vector.png',
-                              width: 7,
-                              height: 14,
-                              fit: BoxFit.cover,
+                            child: InkWell(
+                              onTap: () async {
+                                Navigator.pop(context);
+                              },
+                              child: Image.asset(
+                                'assets/images/Vector.png',
+                                width: 7,
+                                height: 14,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ],
