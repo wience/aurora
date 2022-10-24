@@ -97,8 +97,8 @@ class _MessagesWidgetState extends State<MessagesWidget> {
                         child: AuthUserStreamWidget(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(90),
-                            child: Image.network(
-                              currentUserPhoto,
+                            child: Image.asset(
+                              'assets/images/download.jpeg',
                               width: 45,
                               height: 45,
                               fit: BoxFit.cover,

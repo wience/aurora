@@ -1,10 +1,14 @@
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_timer.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../home/home_widget.dart';
 import '../home_state3/home_state3_widget.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AlertScreenWidget extends StatefulWidget {
   const AlertScreenWidget({Key? key}) : super(key: key);
@@ -14,7 +18,23 @@ class AlertScreenWidget extends StatefulWidget {
 }
 
 class _AlertScreenWidgetState extends State<AlertScreenWidget> {
+  StopWatchTimer? timerController;
+  String? timerValue;
+  int? timerMilliseconds;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    timerController?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +78,55 @@ class _AlertScreenWidgetState extends State<AlertScreenWidget> {
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                       borderRadius: BorderRadius.circular(90),
                     ),
-                    child: Align(
-                      alignment: AlignmentDirectional(0, 0),
-                      child: Text(
-                        '10',
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      child: FlutterFlowTimer(
+                        timerValue: timerValue ??=
+                            StopWatchTimer.getDisplayTime(
+                          timerMilliseconds ??= 10000,
+                          hours: false,
+                          minute: false,
+                          second: true,
+                          milliSecond: false,
+                        ),
+                        timer: timerController ??= StopWatchTimer(
+                          mode: StopWatchMode.countDown,
+                          presetMillisecond: timerMilliseconds ??= 10000,
+                          onChange: (value) {
+                            setState(() {
+                              timerMilliseconds = value;
+                              timerValue = StopWatchTimer.getDisplayTime(
+                                value,
+                                hours: false,
+                                minute: false,
+                                second: true,
+                                milliSecond: false,
+                              );
+                            });
+                          },
+                        ),
                         textAlign: TextAlign.center,
                         style: FlutterFlowTheme.of(context).bodyText1.override(
                               fontFamily: 'Montserrat Alternates',
-                              color: Color(0xFFFF6161),
-                              fontSize: 48,
+                              color: Color(0xFFFE7878),
+                              fontSize: 64,
                               fontWeight: FontWeight.bold,
                             ),
+                        onEnded: () async {
+                          await launchUrl(Uri(
+                            scheme: 'tel',
+                            path: '',
+                          ));
+                          await Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.fade,
+                              duration: Duration(milliseconds: 300),
+                              reverseDuration: Duration(milliseconds: 300),
+                              child: HomeWidget(),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),

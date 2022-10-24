@@ -1,6 +1,8 @@
 import '../alert_screen/alert_screen_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
+import '../chat/chat_widget.dart';
+import '../emergency_contacts/emergency_contacts_widget.dart';
 import '../flood_status/flood_status_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -153,106 +155,119 @@ class _SafetyServicesWidgetState extends State<SafetyServicesWidget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                            child: Container(
-                              width: 335,
-                              height: MediaQuery.of(context).size.height * 0.1,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xDA5C8FEE),
-                                    Color(0xFF66ABF2)
-                                  ],
-                                  stops: [0, 0.3],
-                                  begin: AlignmentDirectional(-0.64, -1),
-                                  end: AlignmentDirectional(0.64, 1),
+                            child: InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        EmergencyContactsWidget(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 335,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xDA5C8FEE),
+                                      Color(0xFF66ABF2)
+                                    ],
+                                    stops: [0, 0.3],
+                                    begin: AlignmentDirectional(-0.64, -1),
+                                    end: AlignmentDirectional(0.64, 1),
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 5, 30, 0),
-                                      child: Image.asset(
-                                        'assets/images/emergency-contact_1.png',
-                                        width: 80,
-                                        height: 100,
-                                        fit: BoxFit.none,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 5, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 5, 30, 0),
+                                        child: Image.asset(
+                                          'assets/images/emergency-contact_1.png',
+                                          width: 80,
+                                          height: 100,
+                                          fit: BoxFit.none,
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 10, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Emergency Contacts',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 4, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  '2',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 10, 0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Emergency Contacts',
+                                              textAlign: TextAlign.start,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
                                                       .bodyText1
                                                       .override(
-                                                        fontFamily: 'Outfit',
+                                                        fontFamily: 'Poppins',
                                                         color: Colors.white,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
-                                                ),
-                                                Text(
-                                                  ' Contacts Added',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color: Colors.white,
-                                                      ),
-                                                ),
-                                              ],
                                             ),
-                                          ),
-                                        ],
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 4, 0, 0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    '2',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          color: Colors.white,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    ' Contacts Added',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          color: Colors.white,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          30, 5, 0, 0),
-                                      child: Image.asset(
-                                        'assets/images/Vector_5.png',
-                                        width: 20,
-                                        height: 30,
-                                        fit: BoxFit.none,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            30, 5, 0, 0),
+                                        child: Image.asset(
+                                          'assets/images/Vector_5.png',
+                                          width: 20,
+                                          height: 30,
+                                          fit: BoxFit.none,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -260,93 +275,122 @@ class _SafetyServicesWidgetState extends State<SafetyServicesWidget> {
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                            child: Container(
-                              width: 335,
-                              height: MediaQuery.of(context).size.height * 0.1,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Color(0xDA5C8FEE),
-                                    Color(0xFF66ABF2)
-                                  ],
-                                  stops: [0, 0.3],
-                                  begin: AlignmentDirectional(-0.64, -1),
-                                  end: AlignmentDirectional(0.64, 1),
+                            child: InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ChatWidget(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 335,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color(0xDA5C8FEE),
+                                      Color(0xFF66ABF2)
+                                    ],
+                                    stops: [0, 0.3],
+                                    begin: AlignmentDirectional(-0.64, -1),
+                                    end: AlignmentDirectional(0.64, 1),
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(-0.35, 0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 5, 15, 0),
-                                        child: Image.asset(
-                                          'assets/images/rating_1.png',
-                                          width: 80,
-                                          height: 100,
-                                          fit: BoxFit.none,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 5, 0),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChatWidget(),
                                         ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          3, 10, 0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            'Connect With an Expert',
-                                            textAlign: TextAlign.start,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
+                                      );
+                                    },
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(-0.35, 0),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10, 5, 15, 0),
+                                            child: Image.asset(
+                                              'assets/images/rating_1.png',
+                                              width: 80,
+                                              height: 100,
+                                              fit: BoxFit.none,
+                                            ),
                                           ),
-                                          Row(
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  3, 10, 0, 0),
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'There are 21 experts ready to \nanswer your question right now',
-                                                textAlign: TextAlign.justify,
+                                                'Connect With an Expert',
+                                                textAlign: TextAlign.start,
                                                 style:
                                                     FlutterFlowTheme.of(context)
+                                                        .bodyText1
+                                                        .override(
+                                                          fontFamily: 'Poppins',
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'There are 21 experts ready to \nanswer your question right now',
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
                                                           fontFamily: 'Outfit',
                                                           color: Colors.white,
                                                           fontSize: 12,
                                                         ),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  30, 5, 0, 0),
+                                          child: Image.asset(
+                                            'assets/images/Vector_5.png',
+                                            width: 20,
+                                            height: 30,
+                                            fit: BoxFit.none,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          30, 5, 0, 0),
-                                      child: Image.asset(
-                                        'assets/images/Vector_5.png',
-                                        width: 20,
-                                        height: 30,
-                                        fit: BoxFit.none,
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),

@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -16,44 +18,40 @@
 	<string>Aurora</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>com.googleusercontent.apps.779996912209-m2d1lrjk0goomj4k810s3l0n8ft1slnp</string>
-                
-            </array>
-        </dict>
-
-    </array>
-
-
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.779996912209-m2d1lrjk0goomj4k810s3l0n8ft1slnp</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-
-
-
-    <key>UIBackgroundModes</key>
-    <array>
-        <string>fetch</string>
-        <string>remote-notification</string>
-    </array>
-
-
+	<key>NSCameraUsageDescription</key>
+	<string>In order to take a picture or video, this app requires permission to access the camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>In order to upload media, this app requires permission to access the photo library.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIStatusBarStyle</key>
+	<string></string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -69,6 +67,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-
 </dict>
 </plist>

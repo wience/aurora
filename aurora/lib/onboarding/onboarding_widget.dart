@@ -7,7 +7,6 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../home/home_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,24 +20,6 @@ class OnboardingWidget extends StatefulWidget {
 class _OnboardingWidgetState extends State<OnboardingWidget> {
   ApiCallResponse? locationResult;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Navigator.pushAndRemoveUntil(
-        context,
-        PageTransition(
-          type: PageTransitionType.fade,
-          duration: Duration(milliseconds: 0),
-          reverseDuration: Duration(milliseconds: 0),
-          child: HomeWidget(),
-        ),
-        (r) => false,
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -100,6 +100,11 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
   'EmergencyContacts': (data) async => EmergencyContactsWidget(),
   'TempPage': (data) async => TempPageWidget(),
   'MapView': (data) async => MapViewWidget(),
+  'chat': (data) async => ChatWidget(
+        chatUser: await getDocumentParameter(
+            data, 'chatUser', UsersRecord.serializer),
+        chatRef: getParameter(data, 'chatRef'),
+      ),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

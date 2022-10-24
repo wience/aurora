@@ -5,7 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../latest_news/latest_news_widget.dart';
 import '../map_view/map_view_widget.dart';
-import '../messages/messages_widget.dart';
+import '../safety_services/safety_services_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -264,7 +264,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         duration: Duration(milliseconds: 300),
                                         reverseDuration:
                                             Duration(milliseconds: 300),
-                                        child: MessagesWidget(),
+                                        child: SafetyServicesWidget(),
                                       ),
                                     );
                                   },
